@@ -2,17 +2,21 @@
 
 #include <iostream>
 #include <winsock2.h>
-#include <nlohmann/json.hpp>
 
+#include "conversion.h"
 #include "gateway/opcode.h"
 #include "gateway/version.h"
 
-using json = nlohmann::json;
+#include <nlohmann/json.hpp>
 
 namespace jasper {
-	void Client::login(const std::string& token_) {
-		token = token_;
-		userCache.clear();
+	using json = nlohmann::json;
+
+	void Client::login(const char* token) {
+		if (!token)
+			return;
+		auth = _strdup(token);
+		rest = std::make_unique<REST>(auth);
 
 		WSADATA wsaData;
 		int wsaResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -59,7 +63,7 @@ namespace jasper {
 				json identify = {
 					{"op", OP_IDENTIFY},
 					{"d", {
-						{"token", token},
+						{"token", auth},
 						{"intents", intents},
 						{"properties", {
 							{"os", "linux"},
@@ -83,25 +87,12 @@ namespace jasper {
 			if (ev.empty())
 				return;
 
-			if (ev == "MESSAGE_CREATE") {
-				std::string content;
-				if (data.contains("content"))
-					content = data["content"].get<std::string>();
-
-				Message msg(content.c_str());
-				if (data.contains("attachments"))
-					for (const auto& attachment : data["attachments"])
-						msg.attachments.push(std::stoull(attachment["id"].get<std::string>()));
-
-				std::string username = data["author"]["username"].get<std::string>();
-				std::string displayName = data["author"].value("global_name", username);
-				auto author = std::make_unique<User>(
-					username.c_str(),
-					displayName.c_str()
-				);
-				msg.author = std::move(author);
-
-				onMessage(&msg);
+			if (ev == "READY") {
+				user = std::unique_ptr<User>(convert::user(rest.get(), data["user"]));
+				onReady(user.get());
+			} else if (ev == "MESSAGE_CREATE") {
+				auto msg = convert::message(rest.get(), data);
+				onMessage(std::move(msg));
 			}
 		});
 

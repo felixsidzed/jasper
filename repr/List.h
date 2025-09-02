@@ -8,11 +8,11 @@ namespace jasper {
 	struct List {
 	public:
 		List(uint32_t capacity = 4) : capacity(capacity), length(0) {
-			data = new T[capacity];
+			data = (T*)calloc(capacity, sizeof(T));
 		}
 
 		~List() {
-			delete[] data;
+			free(data);
 		}
 
 		void push(const T& value) {
@@ -51,10 +51,13 @@ namespace jasper {
 		uint32_t capacity = 0;
 
 		void resize(uint32_t newCapacity) {
-			T* newData = new T[newCapacity];
+			T* newData = (T*)calloc(capacity, sizeof(T));
+			if (newData)
+				throw std::runtime_error("Failed to reallocate");
+
 			for (uint32_t i = 0; i < length; i++)
 				newData[i] = data[i];
-			delete[] data;
+			free(data);
 			data = newData;
 			capacity = newCapacity;
 		}

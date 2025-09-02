@@ -1,7 +1,7 @@
 #pragma once
 
 namespace jasper {
-	enum Intents : int {
+	enum Intents : uint32_t {
         // TODO
 
         INTENTS_ALL = 3276541,
