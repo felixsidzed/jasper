@@ -46,8 +46,9 @@ namespace jasper {
 
 	private:
 		T* data = nullptr;
-		uint32_t capacity = 0;
+		
 		uint32_t length = 0;
+		uint32_t capacity = 0;
 
 		void resize(uint32_t newCapacity) {
 			T* newData = new T[newCapacity];

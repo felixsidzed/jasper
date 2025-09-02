@@ -62,9 +62,9 @@ namespace jasper {
 						{"token", token},
 						{"intents", intents},
 						{"properties", {
-							{"os", "windows"},
-							{"browser", "jasper"},
-							{"device", "jasper"}
+							{"os", "linux"},
+							{"browser", "discord"},
+							{"device", "discord"}
 						}}
 					}}
 				};
@@ -91,7 +91,7 @@ namespace jasper {
 				Message msg(content.c_str());
 				if (data.contains("attachments"))
 					for (const auto& attachment : data["attachments"])
-						msg.attachments.push(std::stoull(attachment.get<std::string>()));
+						msg.attachments.push(std::stoull(attachment["id"].get<std::string>()));
 
 				std::string username = data["author"]["username"].get<std::string>();
 				std::string displayName = data["author"].value("global_name", username);
