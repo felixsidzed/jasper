@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{e16adc03-de59-43ed-8814-ad1ae681b66e}</ProjectGuid>
+    <RootNamespace>jasper</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <AdditionalIncludeDirectories>.;C:\Program Files\OpenSSL-Win64\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>C:\Program Files\OpenSSL-Win64\lib\VC\x64\MDd\libcrypto_static.lib;C:\Program Files\OpenSSL-Win64\lib\VC\x64\MDd\libssl_static.lib;$(CoreLibraryDependencies);shlwapi.lib;Ws2_32.lib;Crypt32.lib;curl/libcurl.lib;curl/zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>.;C:\Program Files\OpenSSL-Win64\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="client\client.cpp" />
+    <ClCompile Include="client\conversion.cpp" />
+    <ClCompile Include="ixwebsocket\IXBench.cpp" />
+    <ClCompile Include="ixwebsocket\IXCancellationRequest.cpp" />
+    <ClCompile Include="ixwebsocket\IXConnectionState.cpp" />
+    <ClCompile Include="ixwebsocket\IXDNSLookup.cpp" />
+    <ClCompile Include="ixwebsocket\IXExponentialBackoff.cpp" />
+    <ClCompile Include="ixwebsocket\IXGetFreePort.cpp" />
+    <ClCompile Include="ixwebsocket\IXGzipCodec.cpp" />
+    <ClCompile Include="ixwebsocket\IXHttp.cpp" />
+    <ClCompile Include="ixwebsocket\IXHttpClient.cpp" />
+    <ClCompile Include="ixwebsocket\IXHttpServer.cpp" />
+    <ClCompile Include="ixwebsocket\IXNetSystem.cpp" />
+    <ClCompile Include="ixwebsocket\IXSelectInterrupt.cpp" />
+    <ClCompile Include="ixwebsocket\IXSelectInterruptEvent.cpp" />
+    <ClCompile Include="ixwebsocket\IXSelectInterruptFactory.cpp" />
+    <ClCompile Include="ixwebsocket\IXSelectInterruptPipe.cpp" />
+    <ClCompile Include="ixwebsocket\IXSetThreadName.cpp" />
+    <ClCompile Include="ixwebsocket\IXSocket.cpp" />
+    <ClCompile Include="ixwebsocket\IXSocketAppleSSL.cpp" />
+    <ClCompile Include="ixwebsocket\IXSocketConnect.cpp" />
+    <ClCompile Include="ixwebsocket\IXSocketFactory.cpp" />
+    <ClCompile Include="ixwebsocket\IXSocketMbedTLS.cpp" />
+    <ClCompile Include="ixwebsocket\IXSocketOpenSSL.cpp" />
+    <ClCompile Include="ixwebsocket\IXSocketServer.cpp" />
+    <ClCompile Include="ixwebsocket\IXSocketTLSOptions.cpp" />
+    <ClCompile Include="ixwebsocket\IXStrCaseCompare.cpp" />
+    <ClCompile Include="ixwebsocket\IXUdpSocket.cpp" />
+    <ClCompile Include="ixwebsocket\IXUrlParser.cpp" />
+    <ClCompile Include="ixwebsocket\IXUserAgent.cpp" />
+    <ClCompile Include="ixwebsocket\IXUuid.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocket.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocketCloseConstants.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocketHandshake.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocketHttpHeaders.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocketPerMessageDeflate.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocketPerMessageDeflateCodec.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocketPerMessageDeflateOptions.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocketProxyServer.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocketServer.cpp" />
+    <ClCompile Include="ixwebsocket\IXWebSocketTransport.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="REST\REST.cpp" />
+    <ClCompile Include="ui\imgui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="ui\imgui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="ui\imgui\imgui.cpp" />
+    <ClCompile Include="ui\imgui\imgui_draw.cpp" />
+    <ClCompile Include="ui\imgui\imgui_tables.cpp" />
+    <ClCompile Include="ui\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="ui\ui.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="client\Cache.h" />
+    <ClInclude Include="client\client.h" />
+    <ClInclude Include="client\conversion.h" />
+    <ClInclude Include="curl\curl.h" />
+    <ClInclude Include="curl\curlver.h" />
+    <ClInclude Include="curl\easy.h" />
+    <ClInclude Include="curl\header.h" />
+    <ClInclude Include="curl\mprintf.h" />
+    <ClInclude Include="curl\multi.h" />
+    <ClInclude Include="curl\options.h" />
+    <ClInclude Include="curl\system.h" />
+    <ClInclude Include="curl\urlapi.h" />
+    <ClInclude Include="curl\websockets.h" />
+    <ClInclude Include="gateway\intents.h" />
+    <ClInclude Include="gateway\opcode.h" />
+    <ClInclude Include="ixwebsocket\IXBase64.h" />
+    <ClInclude Include="ixwebsocket\IXBench.h" />
+    <ClInclude Include="ixwebsocket\IXCancellationRequest.h" />
+    <ClInclude Include="ixwebsocket\IXConnectionState.h" />
+    <ClInclude Include="ixwebsocket\IXDNSLookup.h" />
+    <ClInclude Include="ixwebsocket\IXExponentialBackoff.h" />
+    <ClInclude Include="ixwebsocket\IXGetFreePort.h" />
+    <ClInclude Include="ixwebsocket\IXGzipCodec.h" />
+    <ClInclude Include="ixwebsocket\IXHttp.h" />
+    <ClInclude Include="ixwebsocket\IXHttpClient.h" />
+    <ClInclude Include="ixwebsocket\IXHttpServer.h" />
+    <ClInclude Include="ixwebsocket\IXNetSystem.h" />
+    <ClInclude Include="ixwebsocket\IXProgressCallback.h" />
+    <ClInclude Include="ixwebsocket\IXSelectInterrupt.h" />
+    <ClInclude Include="ixwebsocket\IXSelectInterruptEvent.h" />
+    <ClInclude Include="ixwebsocket\IXSelectInterruptFactory.h" />
+    <ClInclude Include="ixwebsocket\IXSelectInterruptPipe.h" />
+    <ClInclude Include="ixwebsocket\IXSetThreadName.h" />
+    <ClInclude Include="ixwebsocket\IXSocket.h" />
+    <ClInclude Include="ixwebsocket\IXSocketAppleSSL.h" />
+    <ClInclude Include="ixwebsocket\IXSocketConnect.h" />
+    <ClInclude Include="ixwebsocket\IXSocketFactory.h" />
+    <ClInclude Include="ixwebsocket\IXSocketMbedTLS.h" />
+    <ClInclude Include="ixwebsocket\IXSocketOpenSSL.h" />
+    <ClInclude Include="ixwebsocket\IXSocketServer.h" />
+    <ClInclude Include="ixwebsocket\IXSocketTLSOptions.h" />
+    <ClInclude Include="ixwebsocket\IXStrCaseCompare.h" />
+    <ClInclude Include="ixwebsocket\IXUdpSocket.h" />
+    <ClInclude Include="ixwebsocket\IXUniquePtr.h" />
+    <ClInclude Include="ixwebsocket\IXUrlParser.h" />
+    <ClInclude Include="ixwebsocket\IXUserAgent.h" />
+    <ClInclude Include="ixwebsocket\IXUtf8Validator.h" />
+    <ClInclude Include="ixwebsocket\IXUuid.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocket.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketCloseConstants.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketCloseInfo.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketErrorInfo.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketHandshake.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketHandshakeKeyGen.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketHttpHeaders.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketInitResult.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketMessage.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketMessageType.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketOpenInfo.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketPerMessageDeflate.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketPerMessageDeflateCodec.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketPerMessageDeflateOptions.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketProxyServer.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketSendData.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketSendInfo.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketServer.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketTransport.h" />
+    <ClInclude Include="ixwebsocket\IXWebSocketVersion.h" />
+    <ClInclude Include="nlohmann\json.hpp" />
+    <ClInclude Include="nlohmann\json_fwd.hpp" />
+    <ClInclude Include="repr\Channel.h" />
+    <ClInclude Include="repr\Guild.h" />
+    <ClInclude Include="repr\List.h" />
+    <ClInclude Include="repr\Mention.h" />
+    <ClInclude Include="repr\Message.h" />
+    <ClInclude Include="REST\REST.h" />
+    <ClInclude Include="repr\Snowflake.h" />
+    <ClInclude Include="repr\User.h" />
+    <ClInclude Include="gateway\version.h" />
+    <ClInclude Include="REST\version.h" />
+    <ClInclude Include="repr\String.h" />
+    <ClInclude Include="ui\imgui\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="ui\imgui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="ui\imgui\imconfig.h" />
+    <ClInclude Include="ui\imgui\imgui.h" />
+    <ClInclude Include="ui\imgui\imgui_internal.h" />
+    <ClInclude Include="ui\imgui\imstb_rectpack.h" />
+    <ClInclude Include="ui\imgui\imstb_textedit.h" />
+    <ClInclude Include="ui\imgui\imstb_truetype.h" />
+    <ClInclude Include="ui\ui.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

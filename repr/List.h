@@ -1,65 +1,79 @@
 #pragma once
 
-#include <xutility>
+#include <new>
+#include <utility>
 #include <stdexcept>
+#include <initializer_list>
+
+#define JASPER_LIST_CHUNK_SIZE 4
 
 namespace jasper {
-	template<typename T>
-	struct List {
-	public:
-		List(uint32_t capacity = 4) : capacity(capacity), length(0) {
-			data = (T*)calloc(capacity, sizeof(T));
-		}
+	template <typename T>
+    class List {
+    public:
+        List(uint32_t capacity = JASPER_LIST_CHUNK_SIZE) : capacity(capacity) {
+            data = (T*)::operator new(sizeof(T) * capacity);
+        }
 
-		~List() {
-			free(data);
-		}
+        ~List() {
+            clear();
+            ::operator delete(data);
+        }
 
-		void push(const T& value) {
-			if (length >= capacity)
-				resize(capacity * 2);
-			data[length++] = value;
-		}
+       void push(const T& value) {
+            if (length >= capacity) grow();
+            new(&data[length++]) T(value);
+        }
 
-		T pop() {
-			if (length > 0)
-				return data[--length];
-			else
-				throw std::out_of_range("List is empty");
-		}
+        void push(T&& value) {
+            if (length >= capacity) grow();
+            new(&data[length++]) T(std::move(value));
+        }
 
-		T& operator[](uint32_t index) {
-			if (index >= length)
-				throw std::out_of_range("Index out of range");
-			return data[index];
-		}
+        void pop() {
+            if (length == 0)
+                throw std::out_of_range("list is empty");
+            data[--length].~T();
+        }
 
-		const T& operator[](uint32_t index) const {
-			if (index >= length)
-				throw std::out_of_range("Index out of range");
-			return data[index];
-		}
+        uint32_t size() const {
+            return length;
+        }
 
-		uint32_t size() const {
-			return length;
-		}
+        void clear() {
+            for (uint32_t i = 0; i < length; i++)
+                data[i].~T();
+            length = 0;
+        }
 
-	private:
-		T* data = nullptr;
-		
-		uint32_t length = 0;
-		uint32_t capacity = 0;
+        T& operator[](uint32_t index) {
+            if (index >= length)
+                throw std::out_of_range("index out of range");
+            return data[index];
+        }
 
-		void resize(uint32_t newCapacity) {
-			T* newData = (T*)calloc(capacity, sizeof(T));
-			if (newData)
-				throw std::runtime_error("Failed to reallocate");
+        const T& operator[](uint32_t index) const {
+            if (index >= length)
+                throw std::out_of_range("index out of range");
+            return data[index];
+        }
 
-			for (uint32_t i = 0; i < length; i++)
-				newData[i] = data[i];
-			free(data);
-			data = newData;
-			capacity = newCapacity;
-		}
-	};
+    private:
+        T* data = nullptr;
+
+        uint32_t length = 0;
+        uint32_t capacity = 0;
+
+        void grow() {
+           const uint32_t newCapacity = capacity + JASPER_LIST_CHUNK_SIZE;
+            T* newData = (T*)::operator new(sizeof(T) * newCapacity);
+
+            for (uint32_t i = 0; i < length; i++)
+                new(&newData[i]) T(std::move(data[i]));
+
+            ::operator delete(data);
+            data = newData;
+            capacity = newCapacity;
+        }
+    };
 }

@@ -1,8 +1,8 @@
 #pragma once
 
+#include "User.h"
 #include "Snowflake.h"
 #include "REST/REST.h"
-#include "repr/User.h"
 #include "client/conversion.h"
 
 #include <nlohmann/json.hpp>
@@ -22,19 +22,12 @@ namespace jasper {
 			return role ? "<@&" + std::to_string(id) + ">" : "<@" + std::to_string(id) + ">";
 		}
 
-		User* fetch() {
+		std::shared_ptr<User> fetch() {
 			if (role)
 				return nullptr;
 
-			std::string resp = rest->GET(std::format("/users/{}/profile", (uint64_t)id).c_str());
-
-			json data;
-			try {
-				data = json::parse(resp);
-			} catch (...) {
-				return nullptr;
-			}
-			return convert::user(rest, data["user"]);
+			json resp = json::parse(rest->GET(std::format("/users/{}/profile", (uint64_t)id).c_str()));
+			return convert::user(rest, resp["user"]);
 		}
 
 	private:

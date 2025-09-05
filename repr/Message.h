@@ -2,6 +2,7 @@
 
 #include "User.h"
 #include "List.h"
+#include "String.h"
 #include "Mention.h"
 #include "REST/REST.h"
 #include "Snowflake.h"
@@ -16,22 +17,18 @@ namespace jasper {
 
 	class Message {
 	public:
-		char* content;
+		String content;
 
 		Snowflake id;
 		Snowflake channelId;
-
-		User* author;
+		
+		Channel* channel = nullptr;
+		std::shared_ptr<User> author;
 		
 		List<Mention> mentions;
 		List<Snowflake> attachments;
 
-		Message(REST* rest, const char* content, Snowflake id, Snowflake channelId = 0) : rest(rest), id(id), channelId(channelId) {
-			this->content = content ? _strdup(content) : nullptr;
-		}
-		~Message() {
-			if (content) free(content);
-		};
+		Message(REST* rest, const char* content, Snowflake id, Snowflake channelId = 0) : rest(rest), content(content), id(id), channelId(channelId) {}
 
 		void reply(const char* content) {
 			json payload = {

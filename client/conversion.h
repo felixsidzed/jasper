@@ -11,10 +11,16 @@ namespace jasper {
 	using json = nlohmann::json;
 	
 	class User;
+	class Guild;
 	class Message;
+	class Channel;
 
 	namespace convert {
-		User* user(REST* rest, const json& data);
-		std::shared_ptr<Message> message(REST* rest, const json& data);
+		Guild* guild(REST* rest, const json& data);
+		Channel* channel(REST* rest, const json& data);
+		std::shared_ptr<User> user(REST* rest, const json& data);
+		std::shared_ptr<Message> message(REST* rest, Channel* chan, const json& data);
+
+		inline std::shared_ptr<Message> message(REST* rest, const json& data) { return message(rest, nullptr, data); };
 	}
 }

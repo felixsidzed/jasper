@@ -1,10 +1,8 @@
-#include <string>
 #include <thread>
-#include <atomic>
-#include <chrono>
 #include <fstream>
 #include <iostream>
 
+#include "UI/UI.h"
 #include "client/client.h"
 
 #include <curl/curl.h>
@@ -14,29 +12,13 @@ int main() {
 
 	jasper::Client client(jasper::INTENTS_ALL);
 
-	client.onReady = [](jasper::User* user) {
+	client.onReady = [](jasper::Client* self, jasper::User* user) {
 		printf("logged in as '%s'\n", user->name);
+		std::thread(jasper::UI::init, self).detach();
 	};
 
-	client.onMessage = [](std::shared_ptr<jasper::Message> msg) {
-		printf("%s: %s", msg->author->name, msg->content);
-
-		uint32_t nattachments = msg->attachments.size();
-		if (nattachments > 0)
-			printf(" [%u attachments]", nattachments);
-
-		uint32_t nmentions = msg->mentions.size();
-		if (nmentions > 0) {
-			printf(" [mentions:");
-			for (int i = 0; i < nmentions; i++) {
-				auto& mention = msg->mentions[i];
-				printf(" %s", mention.fetch()->name);
-			}
-			printf("]");
-		}
-
-		putchar('\n');
-
+	client.onMessage = [](jasper::Client* self, std::shared_ptr<jasper::Message> msg) {
+		printf("%s: %s\n", msg->author->name, msg->content);
 		if (!strcmp(msg->content, "6"))
 			msg->reply("7");
 	};
@@ -45,6 +27,7 @@ int main() {
 	std::string token;
 	stream >> token;
 	client.login(token.c_str());
+	(void)getchar();
 
 	curl_global_cleanup();
 }

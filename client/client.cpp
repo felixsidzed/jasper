@@ -15,8 +15,8 @@ namespace jasper {
 	void Client::login(const char* token) {
 		if (!token)
 			return;
-		auth = _strdup(token);
-		rest = std::make_unique<REST>(auth);
+		auth = token;
+		rest = std::make_unique<REST>(this);
 
 		WSADATA wsaData;
 		int wsaResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -88,11 +88,18 @@ namespace jasper {
 				return;
 
 			if (ev == "READY") {
-				user = std::unique_ptr<User>(convert::user(rest.get(), data["user"]));
-				onReady(user.get());
+				user = convert::user(rest.get(), data["user"]);
+				for (const auto& guild : data["guilds"]) {
+					Guild* g = convert::guild(rest.get(), guild);
+					std::thread([g]() {
+						g->channels(true, true);
+					}).detach();
+				}
+
+				onReady(this, user.get());
 			} else if (ev == "MESSAGE_CREATE") {
 				auto msg = convert::message(rest.get(), data);
-				onMessage(std::move(msg));
+				onMessage(this, std::move(msg));
 			}
 		});
 
